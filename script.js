@@ -6,7 +6,7 @@ let screenPrice = 50;
 let rollback = 35;
 let fullPrice = 1000;
 let adaptive = true;
-let back = fullPrice * (rollback/100)
+
 
 console.log(typeof title);
 console.log(screens.length);
@@ -18,4 +18,8 @@ console.log(`Стоимость разработки сайта ${fullPrice} д�
 
 console.log(lowerScreensData)
 
-console.log(back);
+let back = () => {
+    return fullPrice * (rollback/100)
+}
+
+console.log(back());
