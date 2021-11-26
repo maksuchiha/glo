@@ -1,9 +1,21 @@
-let title;
-let screens;
-let screenPrice;
-let rollback;
-let fullPrice;
-let adaptive;
+let title = "glo";
+let screens = "Простые, Сложные, Интерактивные";
+let lowerScreens = screens.toLowerCase();
+let lowerScreensData = lowerScreens.split(", ");
+let screenPrice = 50;
+let rollback = 35;
+let fullPrice = 1000;
+let adaptive = true;
+let back = fullPrice * (rollback/100)
 
-alert('Hello World!');
-console.log('Hello World!');
+console.log(typeof title);
+console.log(screens.length);
+console.log(typeof fullPrice);
+console.log(typeof adaptive);
+
+console.log(`Стоимость верстки экранов ${screenPrice} долларов`);
+console.log(`Стоимость разработки сайта ${fullPrice} долларов`);
+
+console.log(lowerScreensData)
+
+console.log(back);
