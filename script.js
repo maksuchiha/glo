@@ -1,11 +1,18 @@
 'use strict'
 
-let title = "glo";
-let screens = "Простые, Сложные, Интерактивные";
-let screenPrice = 50;
+const title = prompt('Как называется наш проект?');
+const screens = prompt('Какие типы экранов нужно разработать? \n' +
+    'пример: "Простые, Сложные, Интерактивные"');
+const screenPrice = +(prompt('Сколько будет стоить данная работа'));
+const adaptive = confirm('Нужен ли адаптив на сайте?');
 const rollback = 35;
-let fullPrice = 1000;
-let adaptive = true;
+
+const service1 = prompt('Какой дополнительный тип услуги нужен?');
+const servicePrice1 = +(prompt('Сколько это будет стоить?'));
+const service2 = prompt('Какой дополнительный тип услуги нужен?');
+const servicePrice2 = +(prompt('Сколько это будет стоить?'));
+
+let fullPrice = screenPrice + servicePrice1 + servicePrice2;
 
 console.log(typeof title);
 console.log(typeof fullPrice);
@@ -15,20 +22,6 @@ console.log(`Стоимость верстки экранов ${screenPrice} д�
 console.log(`Стоимость разработки сайта ${fullPrice} долларов`);
 console.log(screens.toLowerCase().split(", "));
 console.log(fullPrice * (rollback/100));
-
-
-title = prompt('Как называется наш проект?');
-screens = prompt('Какие типы экранов нужно разработать? \n' +
-    'пример: "Простые, Сложные, Интерактивные"');
-screenPrice = +(prompt('Сколько будет стоить данная работа'));
-adaptive = confirm('Нужен ли адаптив на сайте?');
-
-const service1 = prompt('Какой дополнительный тип услуги нужен?');
-const servicePrice1 = +(prompt('Сколько это будет стоить?'));
-const service2 = prompt('Какой дополнительный тип услуги нужен?');
-const servicePrice2 = +(prompt('Сколько это будет стоить?'));
-
-fullPrice = screenPrice + servicePrice1 + servicePrice2;
 
 if (fullPrice >= 30000) {
     fullPrice -= Math.ceil(fullPrice / 100 * 10);
