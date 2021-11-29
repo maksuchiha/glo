@@ -30,13 +30,13 @@ const servicePrice2 = +(prompt('Сколько это будет стоить?')
 
 fullPrice = screenPrice + servicePrice1 + servicePrice2;
 
-if (fullPrice > 30000) {
+if (fullPrice >= 30000) {
     fullPrice -= Math.ceil(fullPrice / 100 * 10);
     console.log('Даём скидку в 10%');
-} else if (fullPrice > 15000 && fullPrice < 30000) {
+} else if (fullPrice >= 15000 && fullPrice <= 30000) {
     fullPrice -= Math.ceil(fullPrice / 100 * 5);
     console.log('Даём скидку в 5%');
-} else if (fullPrice < 15000 && fullPrice > 0) {
+} else if (fullPrice <= 15000 && fullPrice > 0) {
     console.log('Скидка не предусмотрена');
 }   else {
     console.log('Что то пошло не так');
