@@ -1,3 +1,5 @@
+'use strict'
+
 let title = "glo";
 let screens = "Простые, Сложные, Интерактивные";
 let screenPrice = 50;
@@ -40,7 +42,7 @@ if (fullPrice > 30000) {
     console.log('Что то пошло не так');
 }
 
-servicePercentPrice = fullPrice - (fullPrice * (rollback/100));
+let servicePercentPrice = fullPrice - (fullPrice * (rollback/100));
 
 if (isNaN(servicePercentPrice) || servicePercentPrice < 1) {
     console.log('ошибка')
