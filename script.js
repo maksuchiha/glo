@@ -18,13 +18,13 @@ console.log(fullPrice * (rollback/100));
 title = prompt('Как называется наш проект?');
 screens = prompt('Какие типы экранов нужно разработать? \n' +
     'пример: "Простые, Сложные, Интерактивные"');
-screenPrice = Number(prompt('Сколько будет стоить данная работа'));
+screenPrice = +(prompt('Сколько будет стоить данная работа'));
 adaptive = confirm('Нужен ли адаптив на сайте?');
 
 let service1 = prompt('Какой дополнительный тип услуги нужен?');
-let servicePrice1 = Number(prompt('Сколько это будет стоить?'));
+let servicePrice1 = +(prompt('Сколько это будет стоить?'));
 let service2 = prompt('Какой дополнительный тип услуги нужен?');
-let servicePrice2 = Number(prompt('Сколько это будет стоить?'));
+let servicePrice2 = +(prompt('Сколько это будет стоить?'));
 
 fullPrice = screenPrice + servicePrice1 + servicePrice2;
 
