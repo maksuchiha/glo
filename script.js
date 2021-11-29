@@ -23,10 +23,10 @@ screens = prompt('Какие типы экранов нужно разработ
 screenPrice = +(prompt('Сколько будет стоить данная работа'));
 adaptive = confirm('Нужен ли адаптив на сайте?');
 
-let service1 = prompt('Какой дополнительный тип услуги нужен?');
-let servicePrice1 = +(prompt('Сколько это будет стоить?'));
-let service2 = prompt('Какой дополнительный тип услуги нужен?');
-let servicePrice2 = +(prompt('Сколько это будет стоить?'));
+const service1 = prompt('Какой дополнительный тип услуги нужен?');
+const servicePrice1 = +(prompt('Сколько это будет стоить?'));
+const service2 = prompt('Какой дополнительный тип услуги нужен?');
+const servicePrice2 = +(prompt('Сколько это будет стоить?'));
 
 fullPrice = screenPrice + servicePrice1 + servicePrice2;
 
@@ -42,10 +42,10 @@ if (fullPrice > 30000) {
     console.log('Что то пошло не так');
 }
 
-let servicePercentPrice = fullPrice - (fullPrice * (rollback/100));
+const servicePercentPrice = fullPrice - (fullPrice * (rollback/100));
 
 if (isNaN(servicePercentPrice) || servicePercentPrice < 1) {
-    console.log('ошибка')
+    console.log('ошибка');
 } else {
     console.log(Math.ceil(servicePercentPrice));
 }
