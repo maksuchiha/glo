@@ -41,4 +41,9 @@ if (fullPrice > 30000) {
 }
 
 servicePercentPrice = fullPrice - (fullPrice * (rollback/100));
-console.log(Math.ceil(servicePercentPrice));
+
+if (isNaN(servicePercentPrice)) {
+    console.log('ошибка')
+} else {
+    console.log(Math.ceil(servicePercentPrice));
+}
