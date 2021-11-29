@@ -6,7 +6,6 @@ const screens = prompt('Какие типы экранов нужно разра
 const screenPrice = +(prompt('Сколько будет стоить данная работа'));
 const adaptive = confirm('Нужен ли адаптив на сайте?');
 const rollback = 35;
-
 const service1 = prompt('Какой дополнительный тип услуги нужен?');
 const servicePrice1 = +(prompt('Сколько это будет стоить?'));
 const service2 = prompt('Какой дополнительный тип услуги нужен?');
