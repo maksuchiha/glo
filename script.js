@@ -47,6 +47,7 @@ const getServicePercentPrices = (fullPrice, rollback) => {
 
 let fullPrice = getFullPrice(screenPrice, getAllServicePrices(servicePrice1, servicePrice2))
 
+
 getTitle(title)
 showTypeOf(title)
 showTypeOf(screenPrice)
