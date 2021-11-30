@@ -45,7 +45,7 @@ const getServicePercentPrices = (fullPrice, rollback) => {
     return fullPrice - (fullPrice * (rollback/100))
 }
 
-let fullPrice = getFullPrice(screenPrice, getAllServicePrices(servicePrice1, servicePrice2))
+const fullPrice = getFullPrice(screenPrice, getAllServicePrices(servicePrice1, servicePrice2))
 
 
 getTitle(title)
