@@ -1,27 +1,57 @@
 'use strict'
 
-const title = prompt('Как называется наш проект?')
-const screens = prompt('Какие типы экранов нужно разработать? \n' +
-    'пример: "Простые, Сложные, Интерактивные"')
-const screenPrice = +(prompt('Сколько будет стоить данная работа'))
-const adaptive = confirm('Нужен ли адаптив на сайте?')
-const rollback = 35
-const service1 = prompt('Какой дополнительный тип услуги нужен?')
-const servicePrice1 = +(prompt('Сколько это будет стоить?'))
-const service2 = prompt('Какой дополнительный тип услуги нужен?')
-const servicePrice2 = +(prompt('Сколько это будет стоить?'))
+let title
+let screens
+let screenPrice
+let adaptive
+let rollback = 35
+let fullPrice
+let allServicePrices
+let servicePercentPrices
+let service1
+let service2
 
+const isNumber = (num) => {
+    return !isNaN(parseFloat(num)) && isFinite(num)
+}
+
+const asking = () => {
+    title = prompt('Как называется наш проект?')
+    screens = prompt('Какие типы экранов нужно разработать? \n' +
+        'пример: "Простые, Сложные, Интерактивные"')
+
+    do {
+        screenPrice = prompt('Сколько будет стоить данная работа?')
+    } while (!isNumber(screenPrice))
+
+    adaptive = confirm('Нужен ли адаптив на сайте?')
+}
 
 const showTypeOf = (item) => {
     console.log(item, typeof item)
 }
 
-const getAllServicePrices = (priceOne, priceTwo) => {
-    return priceOne + priceTwo
+const getAllServicePrices = () => {
+    let sum = 0
+    for (let i = 0; i < 2; i++) {
+        if (i === 0) {
+            service1 = prompt('Какой дополнительный тип услуги нужен?')
+            do {
+                sum += parseInt(prompt('Сколько это будет стоить?'))
+            } while (!isNumber(sum))
+        } else if (i === 1) {
+            service2 = prompt('Какой дополнительный тип услуги нужен?')
+            do {
+                sum += parseInt(prompt('Сколько это будет стоить?'))
+            } while (!isNumber(sum))
+        }
+    }
+
+    return sum
 }
 
 function getFullPrice(price, service) {
-    return price + service
+    return parseInt(price) + parseInt(service)
 }
 
 const getTitle = (item) => {
@@ -45,15 +75,18 @@ const getServicePercentPrices = (fullPrice, rollback) => {
     return fullPrice - (fullPrice * (rollback / 100))
 }
 
-const fullPrice = getFullPrice(screenPrice, getAllServicePrices(servicePrice1, servicePrice2))
+asking()
+allServicePrices = getAllServicePrices()
+fullPrice = getFullPrice(screenPrice, allServicePrices)
+servicePercentPrices = getServicePercentPrices(fullPrice, rollback)
+title = getTitle(title)
 
-
-getTitle(title)
 showTypeOf(title)
 showTypeOf(screenPrice)
 showTypeOf(adaptive)
 
 
-console.log(screens.split(','))
 console.log(getRollbackMessage(fullPrice))
-console.log(getServicePercentPrices(fullPrice, rollback))
+console.log(screens.length)
+console.log(servicePercentPrices)
+console.log("Стоимость вёрстки экранов " + screenPrice + " долларов" + " и " + "стоимость разработки сайта " + fullPrice + " долларов")
