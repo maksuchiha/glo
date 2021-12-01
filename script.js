@@ -13,7 +13,7 @@ const servicePrice2 = +(prompt('Сколько это будет стоить?')
 
 
 const showTypeOf = (item) => {
-    console.log(item, typeof item);
+    console.log(item, typeof item)
 }
 
 const getAllServicePrices = (priceOne, priceTwo) => {
