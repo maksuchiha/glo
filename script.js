@@ -42,7 +42,7 @@ const getRollbackMessage = (price) => {
 }
 
 const getServicePercentPrices = (fullPrice, rollback) => {
-    return fullPrice - (fullPrice * (rollback/100))
+    return fullPrice - (fullPrice * (rollback / 100))
 }
 
 const fullPrice = getFullPrice(screenPrice, getAllServicePrices(servicePrice1, servicePrice2))
@@ -54,6 +54,6 @@ showTypeOf(screenPrice)
 showTypeOf(adaptive)
 
 
-console.log(screens.split(' '))
+console.log(screens.split(','))
 console.log(getRollbackMessage(fullPrice))
 console.log(getServicePercentPrices(fullPrice, rollback))
