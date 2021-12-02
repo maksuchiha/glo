@@ -32,22 +32,25 @@ const showTypeOf = (item) => {
 }
 
 const getAllServicePrices = () => {
-    let sum = 0
+    let sum1 = 0
+    let sum2 = 0
+    let result
     for (let i = 0; i < 2; i++) {
         if (i === 0) {
             service1 = prompt('Какой дополнительный тип услуги нужен?')
             do {
-                sum += parseInt(prompt('Сколько это будет стоить?'))
-            } while (!isNumber(sum))
+                sum1 = parseInt(prompt("Сколько будет стоить?"))
+            } while (!isNumber(sum1))
         } else if (i === 1) {
             service2 = prompt('Какой дополнительный тип услуги нужен?')
             do {
-                sum += parseInt(prompt('Сколько это будет стоить?'))
-            } while (!isNumber(sum))
+                sum2 = parseInt(prompt("Сколько будет стоить?"))
+            } while (!isNumber(sum2))
         }
+        result = sum1 + sum2
     }
 
-    return sum
+    return result
 }
 
 function getFullPrice(price, service) {
