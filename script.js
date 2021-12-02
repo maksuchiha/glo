@@ -39,17 +39,17 @@ const getAllServicePrices = () => {
         if (i === 0) {
             service1 = prompt('Какой дополнительный тип услуги нужен?')
             do {
-                sum1 = parseInt(prompt("Сколько будет стоить?"))
+                sum1 = prompt("Сколько будет стоить?")
             } while (!isNumber(sum1))
         } else if (i === 1) {
             service2 = prompt('Какой дополнительный тип услуги нужен?')
             do {
-                sum2 = parseInt(prompt("Сколько будет стоить?"))
+                sum2 = prompt("Сколько будет стоить?")
             } while (!isNumber(sum2))
         }
-        result = sum1 + sum2
+        result = +sum1 + +sum2
     }
-
+    console.log(result)
     return result
 }
 
