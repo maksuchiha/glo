@@ -2,51 +2,76 @@
 
 const appData = {
     title: '',
-    screens: '',
+    screens: [],
     screenPrice: 0,
     adaptive: true,
     rollback: 35,
     allServicePrices: 0,
     fullPrice: 0,
     servicePercentPrices: 0,
-    service1: '',
-    service2: '',
+    services: {},
+    isString: (item) => {
+        const check = /^-?\d+\.?\d*$/
+        return check.test(item)
+    },
     asking: () => {
-        appData.title = prompt('Как называется наш проект?')
-        appData.screens = prompt('Какие типы экранов нужно разработать? \n' +
-            'пример: "Простые, Сложные, Интерактивные"')
+        let title
         do {
-            appData.screenPrice = prompt('Сколько будет стоить данная работа?')
-        } while (appData.isNumber(appData.screenPrice))
+            title = prompt('Как называется ваш проект?')
+        } while (appData.isString(title))
+        appData.title = title
 
-        appData.adaptive = confirm('Нужен ли адаптив на сайте?')
-    },
-    isNumber: (num) => {
-        return isNaN(parseFloat(num)) && !isFinite(num)
-    },
-    getAllServicePrices: () => {
-        let sum = 0
+
         for (let i = 0; i < 2; i++) {
+            let name
             let price = 0
-            if (i === 0) {
-                appData.service1 = prompt('Какой дополнительный тип услуги нужен?')
-            } else if (i === 1) {
-                appData.service2 = prompt('Какой дополнительный тип услуги нужен?')
-            }
+
+            do {
+                name = prompt('Какие типы экранов нужно разработать?')
+            } while (appData.isString(name))
+
             do {
                 price = prompt("Сколько будет стоить?")
             } while (appData.isNumber(price))
 
-            sum += +price
+            appData.screens.push({id: i, name, price})
         }
-        return sum
+
+        for (let i = 0; i < 2; i++) {
+            let name
+            let price = 0
+
+            do {
+                name = prompt('Какой дополнительный тип услуги нужен?')
+            } while (appData.isString(name))
+
+            do {
+                price = prompt("Сколько будет стоить?")
+            } while (appData.isNumber(price))
+
+            appData.services[name] = +price
+        }
+
+        appData.adaptive = confirm('Нужен ли адаптив на сайте?')
+    },
+    addPrices: () => {
+        for (let screen of appData.screens) {
+            appData.screenPrice += screen.price
+        }
+
+        for (let key in appData.services) {
+            appData.allServicePrices += appData.services[key]
+        }
+    },
+    isNumber: (num) => {
+        return isNaN(parseFloat(num)) && !isFinite(num)
     },
     getFullPrice: (price, service) => {
-        return parseInt(price) + parseInt(service)
+        appData.fullPrice = +price + +service
     },
     getTitle: (item) => {
         item = item.trim()
-        return item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()
+        appData.title = item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()
     },
     getRollbackMessage: (price) => {
         if (price >= 30000) {
@@ -60,22 +85,20 @@ const appData = {
         }
     },
     getServicePercentPrices: (fullPrice, rollback) => {
-        return fullPrice - (fullPrice * (rollback / 100))
+        appData.servicePercentPrices = fullPrice - (fullPrice * (rollback / 100))
     },
     start: () => {
         appData.asking()
-        appData.allServicePrices = appData.getAllServicePrices()
-        appData.fullPrice = appData.getFullPrice(appData.screenPrice, appData.allServicePrices)
-        appData.servicePercentPrices = appData.getServicePercentPrices(appData.fullPrice, appData.rollback)
-        appData.title = appData.getTitle(appData.title)
+        appData.addPrices()
+        appData.getFullPrice(appData.screenPrice, appData.allServicePrices)
+        appData.getServicePercentPrices(appData.fullPrice, appData.rollback)
+        appData.getTitle(appData.title)
         appData.logger()
     },
     logger: () => {
         console.log(appData.fullPrice)
         console.log(appData.servicePercentPrices)
-        for (let key in appData) {
-            console.log(key + appData[key])
-        }
+        console.log(appData.screens)
     }
 }
 
