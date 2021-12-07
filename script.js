@@ -10,10 +10,6 @@ const appData = {
     fullPrice: 0,
     servicePercentPrices: 0,
     services: {},
-    isString: (item) => {
-        const check = /^-?\d+\.?\d*$/
-        return check.test(item)
-    },
     asking: () => {
         let title
 
@@ -30,7 +26,7 @@ const appData = {
             } while (appData.isString(name))
 
             do {
-                price = prompt("Сколько будет стоить?")
+                price = +prompt("Сколько будет стоить?")
             } while (appData.isNumber(price))
 
             appData.screens.push({id: i, name, price})
@@ -61,6 +57,10 @@ const appData = {
     },
     isNumber: (num) => {
         return isNaN(parseFloat(num)) && !isFinite(num)
+    },
+    isString: (item) => {
+        const check = /^-?\d+\.?\d*$/
+        return check.test(item)
     },
     getFullPrice: (price, service) => {
         appData.fullPrice = +price + +service
