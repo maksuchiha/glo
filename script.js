@@ -16,16 +16,15 @@ const appData = {
     },
     asking: () => {
         let title
+
         do {
             title = prompt('Как называется ваш проект?')
         } while (appData.isString(title))
         appData.title = title
 
-
         for (let i = 0; i < 2; i++) {
             let name
             let price = 0
-
             do {
                 name = prompt('Какие типы экранов нужно разработать?')
             } while (appData.isString(name))
@@ -46,21 +45,18 @@ const appData = {
             } while (appData.isString(name))
 
             do {
-                price = prompt("Сколько будет стоить?")
+                price = +prompt("Сколько будет стоить?")
             } while (appData.isNumber(price))
-
-            appData.services[name] = +price
+            appData.services = {id: i, name, price}
         }
-
         appData.adaptive = confirm('Нужен ли адаптив на сайте?')
     },
     addPrices: () => {
-        for (let screen of appData.screens) {
-            appData.screenPrice += screen.price
-        }
+
+        appData.screenPrice = appData.screens.reduce((accumulator, item) => +accumulator + +item.price, 0)
 
         for (let key in appData.services) {
-            appData.allServicePrices += appData.services[key]
+            appData.allServicePrices += appData.services.price
         }
     },
     isNumber: (num) => {
@@ -98,7 +94,6 @@ const appData = {
     logger: () => {
         console.log(appData.fullPrice)
         console.log(appData.servicePercentPrices)
-        console.log(appData.screens)
     }
 }
 
