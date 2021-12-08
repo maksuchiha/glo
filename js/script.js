@@ -8,24 +8,14 @@ const addPlus = document.querySelector(".screen-btn")
 const otherItems = document.querySelectorAll('.other-items')
 const rollback = document.querySelector('.rollback > .main-controls__range > input')
 const rangeValue = document.querySelector('.rollback > .main-controls__range > .range-value')
-const totalInput = document.getElementsByClassName('total-input')
-const totalPrice = totalInput[0]
-const totalCount = totalInput[1]
-const totalOther = totalInput[2]
-const totalAllPrice = totalInput[3]
-const totalRollback = totalInput[4]
-let screen = document.querySelectorAll('.screen')
-let otherPercent
-let otherNumber
-
-
-otherItems.forEach((item) => {
-    if (item.classList.contains('percent') === true) {
-        otherPercent = item
-    } else if (item.classList.contains('number') === true) {
-        otherNumber = item
-    }
-})
+const totalPrice = document.getElementsByClassName('total-input')[0]
+const totalCount = document.getElementsByClassName('total-input')[1]
+const totalOther = document.getElementsByClassName('total-input')[2]
+const totalAllPrice = document.getElementsByClassName('total-input')[3]
+const totalRollback = document.getElementsByClassName('total-input')[4]
+const screen = document.querySelectorAll('.screen')
+const otherPercent = [otherItems[0], otherItems[1]]
+const otherNumber = [otherItems[2], otherItems[3], otherItems[4], otherItems[5], otherItems[6]]
 
 
 const appData = {
