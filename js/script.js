@@ -14,8 +14,8 @@ const totalOther = document.getElementsByClassName('total-input')[2]
 const totalAllPrice = document.getElementsByClassName('total-input')[3]
 const totalRollback = document.getElementsByClassName('total-input')[4]
 const screen = document.querySelectorAll('.screen')
-const otherPercent = [otherItems[0], otherItems[1]]
-const otherNumber = [otherItems[2], otherItems[3], otherItems[4], otherItems[5], otherItems[6]]
+const otherPercent = document.querySelectorAll('.main-controls__views .percent')
+const otherNumber = document.querySelectorAll('.main-controls__views .number')
 
 
 const appData = {
