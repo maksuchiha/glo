@@ -54,7 +54,6 @@ const appData = {
         const screens = document.querySelectorAll('.screen')
         const cloneScreen = screens[0].cloneNode(true)
         screens[screens.length -1].after(cloneScreen)
-
     },
     isValidate: () => {
         const screensSelect = document.querySelectorAll('.screen select')
@@ -84,7 +83,6 @@ const appData = {
         return isNaN(parseFloat(num)) && !isFinite(num)
     },
     addPrices: () => {
-
         appData.screenPrice = appData.screens.reduce((accumulator, item) => +accumulator + +item.price, 0)
 
         for (let key in appData.servicesNumber) {
@@ -143,7 +141,6 @@ const appData = {
         appData.addScreens()
         appData.addServices()
         appData.addPrices()
-        // appData.getServicePercentPrices(appData.fullPrice, appData.rollback)
         // appData.logger()
         appData.showResult()
         appData.counterScreens()
