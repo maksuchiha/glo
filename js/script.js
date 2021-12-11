@@ -97,6 +97,8 @@ const appData = {
         appData.servicePercentPrices = appData.fullPrice - (appData.rollback * (appData.fullPrice / 100))
 
         appData.screens = []
+        appData.servicePricesPercent = 0
+        appData.servicePricesNumber = 0
     },
     showResult: () => {
         totalPrice.value = appData.screenPrice
