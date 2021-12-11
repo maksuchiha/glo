@@ -96,9 +96,6 @@ const appData = {
         appData.fullPrice = +appData.screenPrice + +appData.servicePricesNumber + +appData.servicePricesPercent
         appData.servicePercentPrices = appData.fullPrice - (appData.rollback * (appData.fullPrice / 100))
 
-        appData.screens = []
-        appData.servicePricesPercent = 0
-        appData.servicePricesNumber = 0
     },
     showResult: () => {
         totalPrice.value = appData.screenPrice
@@ -139,6 +136,11 @@ const appData = {
             }
         })
     },
+    addReset: () => {
+        appData.screens = []
+        appData.servicePricesPercent = 0
+        appData.servicePricesNumber = 0
+    },
     start: () => {
         appData.addScreens()
         appData.addServices()
@@ -146,6 +148,7 @@ const appData = {
         // appData.logger()
         appData.showResult()
         appData.counterScreens()
+        appData.addReset()
     },
     logger: () => {
         console.log(appData.fullPrice)
