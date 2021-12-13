@@ -45,6 +45,7 @@ const appData = {
         rollback.addEventListener('input', () => {
             rangeValue.textContent = `${rollback.value}%`
             appData.rollback = +rollback.value
+            appData.isValidate()
         })
     },
     addTitle: () => {
