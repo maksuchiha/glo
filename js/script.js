@@ -13,7 +13,6 @@ const totalOther = document.getElementsByClassName('total-input')[2]
 const totalAllPrice = document.getElementsByClassName('total-input')[3]
 const totalRollback = document.getElementsByClassName('total-input')[4]
 const screens = document.querySelectorAll('.screen')
-const screenCopy = document.querySelector('.screen').cloneNode(true)
 const otherPercent = document.querySelectorAll('.main-controls__views .percent')
 const otherNumber = document.querySelectorAll('.main-controls__views .number')
 const cms = document.querySelector('.cms')
@@ -74,7 +73,8 @@ const appData = {
     },
     addScreenBlock: function () {
         const screens = document.querySelectorAll('.screen')
-        const cloneScreen = screenCopy.cloneNode(true)
+        const cloneScreen = screens[0].cloneNode(true)
+        cloneScreen.querySelector('input').value = ''
         screens[screens.length -1].after(cloneScreen)
     },
     isValidate: function () {
