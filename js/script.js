@@ -55,7 +55,6 @@ const appData = {
         resetBtn.addEventListener('click' , () => {
             this.addUnblock()
             this.resetValue()
-            console.log(appData)
         })
         cms.querySelector('#cms-open').addEventListener('click', () => {
             this.addCms()
