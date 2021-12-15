@@ -15,6 +15,10 @@ const totalRollback = document.getElementsByClassName('total-input')[4]
 const screens = document.querySelectorAll('.screen')
 const otherPercent = document.querySelectorAll('.main-controls__views .percent')
 const otherNumber = document.querySelectorAll('.main-controls__views .number')
+const cms = document.querySelector('.cms')
+const cmsCheckSelect = document.getElementById('cms-select')
+const hiddenItemsCms = cms.querySelector('.hidden-cms-variants')
+const hiddenInputCms = document.querySelector('.hidden-cms-variants .main-controls__input')
 
 
 const appData = {
@@ -29,7 +33,8 @@ const appData = {
     servicePercentPrices: 0,
     servicesPercent: {},
     servicesNumber: {},
-    counterScreens: () => {
+    cmsPercent: 0,
+    counterScreens: function () {
         const screensInput = document.querySelectorAll('.screen input')
         let count = 0
         screensInput.forEach((item) => {
@@ -38,93 +43,124 @@ const appData = {
         return count
     },
     isError: false,
-    init: () => {
-        appData.addTitle()
-        addPlus.addEventListener('click', appData.addScreenBlock)
-        calcBtn.addEventListener('click', appData.isValidate)
+    init: function () {
+        this.addTitle()
+        addPlus.addEventListener('click', this.addScreenBlock)
+        calcBtn.addEventListener('click', this.isValidate.bind(this))
         rollback.addEventListener('input', () => {
             rangeValue.textContent = `${rollback.value}%`
-            appData.rollback = +rollback.value
-            appData.isValidate()
+            this.rollback = +rollback.value
+            this.isValidate()
+        })
+        resetBtn.addEventListener('click' , () => {
+            this.addUnblock()
+            this.resetValue()
+        })
+        cms.querySelector('#cms-open').addEventListener('click', () => {
+            this.addCms()
+        })
+        cmsCheckSelect.addEventListener('change', () => {
+            if (cmsCheckSelect.selectedIndex === 2) {
+                hiddenInputCms.style.display = 'flex'
+            } else {
+                hiddenInputCms.querySelector('input').value = ''
+                hiddenInputCms.style.display = 'none'
+            }
         })
     },
-    addTitle: () => {
+    addTitle: function () {
         document.title = calcTitle.textContent
     },
-    addScreenBlock: () => {
+    addScreenBlock: function () {
         const screens = document.querySelectorAll('.screen')
         const cloneScreen = screens[0].cloneNode(true)
         screens[screens.length -1].after(cloneScreen)
     },
-    isValidate: () => {
+    isValidate: function () {
         const screensSelect = document.querySelectorAll('.screen select')
         const screensInput = document.querySelectorAll('.screen input')
         screensSelect.forEach((item) => {
-            appData.isError = false
+            this.isError = false
             if (item.selectedIndex === 0) {
-                appData.isError = true
+                this.isError = true
             } else if (item.selectedIndex === 0 && item.selectedIndex  !== 0) {
-                appData.isError = true
+                this.isError = true
             }
             screensInput.forEach((item) => {
                 if (item.value.trim() === '') {
-                    appData.isError = true
+                    this.isError = true
                 } else if (item.value.trim() === '' && item.value.trim() !== '') {
-                    appData.isError = true
-                } else if (appData.isNumber(item.value)) {
-                    appData.isError = true
+                    this.isError = true
+                } else if (this.isNumber(item.value)) {
+                    this.isError = true
                 }
             })
         })
-        if (!appData.isError) {
-            appData.start()
+        if (!this.isError) {
+            this.start()
         }
     },
     isNumber: (num) => {
         return isNaN(parseFloat(num)) && !isFinite(num)
     },
-    addPrices: () => {
-        appData.screenPrice = appData.screens.reduce((accumulator, item) => +accumulator + +item.price, 0)
+    addPrices: function () {
+        this.screenPrice = this.screens.reduce((accumulator, item) => +accumulator + +item.price, 0)
 
-        for (let key in appData.servicesNumber) {
-            appData.servicePricesNumber += appData.servicesNumber[key]
+        for (let key in this.servicesNumber) {
+            this.servicePricesNumber += this.servicesNumber[key]
         }
 
-        for (let key in appData.servicesPercent) {
-            appData.servicePricesPercent += appData.screenPrice * (appData.servicesPercent[key] / 100)
+        for (let key in this.servicesPercent) {
+            this.servicePricesPercent += this.screenPrice * (this.servicesPercent[key] / 100)
         }
 
-        appData.fullPrice = +appData.screenPrice + +appData.servicePricesNumber + +appData.servicePricesPercent
-        appData.servicePercentPrices = appData.fullPrice - (appData.rollback * (appData.fullPrice / 100))
 
+        this.fullPrice = +this.screenPrice + +this.servicePricesNumber + +this.servicePricesPercent
+
+        if (!this.isNumber(+hiddenInputCms.querySelector('input').value)) {
+            cmsCheckSelect.querySelector('#cms-other-select').value = +hiddenInputCms.querySelector('input').value
+            this.cmsPercent = this.fullPrice + (+cmsCheckSelect.value * (this.fullPrice / 100))
+            this.fullPrice = this.cmsPercent
+            this.servicePercentPrices = this.fullPrice - (this.rollback * (this.fullPrice / 100))
+        } else {
+            this.servicePercentPrices = this.fullPrice - (this.rollback * (this.fullPrice / 100))
+        }
     },
-    showResult: () => {
-        totalPrice.value = appData.screenPrice
-        totalOther.value = appData.servicePricesNumber + appData.servicePricesPercent
-        totalAllPrice.value = appData.fullPrice
-        totalRollback.value = appData.servicePercentPrices
-        totalCount.value = appData.counterScreens()
+    addCms: () => {
+        const cmsCheck = cms.querySelector('#cms-open')
+        if (cmsCheck.checked) {
+            hiddenItemsCms.style.display = 'flex'
+        } else {
+            hiddenItemsCms.style.display = 'none'
+        }
     },
-    addScreens: () => {
+    showResult: function () {
+        totalPrice.value = this.screenPrice
+        totalOther.value = this.servicePricesNumber + this.servicePricesPercent
+        totalAllPrice.value = this.fullPrice
+        totalRollback.value = this.servicePercentPrices
+        totalCount.value = this.counterScreens()
+    },
+    addScreens: function () {
         const screens = document.querySelectorAll('.screen')
         screens.forEach((screen, index) => {
             const select = screen.querySelector('select')
             const input = screen.querySelector('input')
             const selectName = select.options[select.selectedIndex].textContent
-            appData.screens.push({
+            this.screens.push({
                 id: index,
                 name: selectName,
                 price: +select.value * +input.value
             })
         })
     },
-    addServices: () => {
+    addServices: function () {
         otherPercent.forEach((item) => {
             const check = item.querySelector('input[type=checkbox]')
             const label = item.querySelector('label')
             const input = item.querySelector('input[type=text]')
             if (check.checked) {
-                appData.servicesPercent[label.textContent] = +input.value
+                this.servicesPercent[label.textContent] = +input.value
             }
         })
 
@@ -133,28 +169,91 @@ const appData = {
             const label = item.querySelector('label')
             const input = item.querySelector('input[type=text]')
             if (check.checked) {
-                appData.servicesNumber[label.textContent] = +input.value
+                this.servicesNumber[label.textContent] = +input.value
             }
         })
     },
-    addReset: () => {
-        appData.screens = []
-        appData.servicePricesPercent = 0
-        appData.servicePricesNumber = 0
+    addBlock: () => {
+        const input = document.querySelectorAll('.screen input')
+        const selector = document.querySelectorAll('.screen select')
+        const checkBox = document.querySelectorAll('.main-controls__checkbox input')
+        const otherInput = document.getElementById('cms-other-input')
+        input.forEach((item) => {
+            item.setAttribute('disabled', 'disabled')
+        })
+        selector.forEach((item) => {
+            item.setAttribute('disabled', 'disabled')
+        })
+        checkBox.forEach((item) => {
+            item.setAttribute('disabled', 'disabled')
+        })
+        cmsCheckSelect.setAttribute('disabled', 'disabled')
+        otherInput.setAttribute('disabled', 'disabled')
+        calcBtn.style.display = 'none'
+        resetBtn.style.display = 'flex'
     },
-    start: () => {
-        appData.addScreens()
-        appData.addServices()
-        appData.addPrices()
-        // appData.logger()
-        appData.showResult()
-        appData.counterScreens()
-        appData.addReset()
+    addUnblock: () => {
+        const input = document.querySelectorAll('.screen input')
+        const selector = document.querySelectorAll('.screen select')
+        const checkBox = document.querySelectorAll('.main-controls__checkbox input')
+        const otherInput = document.getElementById('cms-other-input')
+        input.forEach((item) => {
+            item.removeAttribute('disabled')
+            item.value = ''
+        })
+        selector.forEach((item) => {
+            item.removeAttribute('disabled')
+            item.value = ''
+        })
+        checkBox.forEach((item) => {
+            if (item.checked) {
+                item.checked = false
+            }
+            item.removeAttribute('disabled')
+        })
+        cmsCheckSelect.removeAttribute('disabled')
+        otherInput.removeAttribute('disabled')
+        const screens = document.querySelectorAll('.screen')
+        screens.forEach((item, index) => {
+            if (index !== 0) {
+                item.remove()
+            }
+        })
+        rangeValue.textContent = `${0}%`
+        this.rollback = 0
+        rollback.value = 0
+        calcBtn.style.display = 'flex'
+        resetBtn.style.display = 'none'
+        cmsCheckSelect.value = ''
+        hiddenItemsCms.style.display = 'none'
+        hiddenInputCms.style.display = 'none'
     },
-    logger: () => {
-        console.log(appData.fullPrice)
-        console.log(appData.servicePercentPrices)
+    resetValue: () => {
+        totalPrice.value = '0'
+        totalOther.value = '0'
+        totalAllPrice.value = '0'
+        totalRollback.value = '0'
+        totalCount.value = '0'
+    },
+    addReset: function () {
+        this.screens = []
+        this.servicePricesPercent = 0
+        this.servicePricesNumber = 0
+    },
+    start: function () {
+        this.addScreens()
+        this.addServices()
+        this.addPrices()
+        this.showResult()
+        this.counterScreens()
+        this.addReset()
+        this.addBlock()
+    },
+    logger: function () {
+
     }
 }
 
 appData.init()
+
+
