@@ -55,6 +55,7 @@ const appData = {
         resetBtn.addEventListener('click' , () => {
             this.addUnblock()
             this.resetValue()
+            console.log(appData)
         })
         cms.querySelector('#cms-open').addEventListener('click', () => {
             this.addCms()
@@ -230,12 +231,22 @@ const appData = {
         hiddenItemsCms.style.display = 'none'
         hiddenInputCms.style.display = 'none'
     },
-    resetValue: () => {
+    resetValue: function() {
         totalPrice.value = '0'
         totalOther.value = '0'
         totalAllPrice.value = '0'
         totalRollback.value = '0'
         totalCount.value = '0'
+        this.fullPrice = 0
+        this.rollback = 0
+        this.servicePricesPercent = 0
+        this.servicePricesNumber = 0
+        this.servicesPercent = 0
+        this.servicesNumber = 0
+        this.fullPrice = 0
+        this.servicePercentPrices = 0
+        this.cmsPercent = 0
+        this.screenPrice = 0
     },
     addReset: function () {
         this.screens = []
