@@ -187,6 +187,7 @@ const appData = {
         checkBox.forEach((item) => {
             item.setAttribute('disabled', 'disabled')
         })
+        addPlus.setAttribute('disabled', 'disabled')
         cmsCheckSelect.setAttribute('disabled', 'disabled')
         otherInput.setAttribute('disabled', 'disabled')
         calcBtn.style.display = 'none'
@@ -211,6 +212,7 @@ const appData = {
             }
             item.removeAttribute('disabled')
         })
+        addPlus.removeAttribute('disabled')
         cmsCheckSelect.removeAttribute('disabled')
         otherInput.removeAttribute('disabled')
         const screens = document.querySelectorAll('.screen')
